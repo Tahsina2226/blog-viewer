@@ -1,5 +1,6 @@
 import React from 'react';
 import BlogCard from '../components/BlogCard';
+import Navbar from '../components/Navbar'; // Import the Navbar component
 import Grid from '@mui/material/Grid';
 
 export async function getStaticProps() {
@@ -14,7 +15,8 @@ export async function getStaticProps() {
 const HomePage = ({ posts }) => {
     return ( <
         div style = {
-            { backgroundColor: '#f0f4f8', padding: '40px 20px' } } >
+            { backgroundColor: '#f0f4f8', padding: '40px 20px' } } > { /* Add the Navbar here */ } <
+        Navbar / >
         <
         h1 style = {
             {

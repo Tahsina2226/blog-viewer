@@ -1,29 +1,31 @@
-import React from 'react';
-import Link from 'next/link';
-import { useSession } from 'next-auth/react';
+import Link from "next/link";
+import { useAuth } from "@kinde-oss/kinde-auth-nextjs";
 
-const Header = () => {
-    const { data: session } = useSession();
+export default function Header() {
+    const { isAuthenticated, login, logout } = useAuth();
 
     return ( <
-        header >
+        header className = "bg-gray-800 text-white p-4" >
         <
-        nav >
+        nav className = "flex justify-between" >
         <
-        Link href = "/" > Home < /Link> {
-            session ? ( <
-                >
-                <
-                Link href = "/profile" > Profile < /Link> <
-                button > Logout < /button> {/ * Implement logout functionality * /} <
-                />
+        div >
+        <
+        Link href = "/" > < a className = "mr-4" > Home < /a></Link >
+        <
+        Link href = "/profile" > < a > Profile < /a></Link >
+        <
+        /div> <
+        div > {!isAuthenticated ? ( <
+                button onClick = { login }
+                className = "bg-blue-500 px-4 py-2 rounded" > Login < /button>
             ) : ( <
-                Link href = "/login" > Login < /Link>
+                button onClick = { logout }
+                className = "bg-red-500 px-4 py-2 rounded" > Logout < /button>
             )
         } <
+        /div> <
         /nav> <
         /header>
     );
-};
-
-export default Header;
+}

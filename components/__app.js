@@ -1,16 +1,18 @@
 import '../styles/globals.css';
-import { SessionProvider } from 'next-auth/react';
+import { KindeProvider } from '@kinde-oss/kinde-auth-nextjs';
+import Navbar from '../components/Navbar';
 
-function MyApp({ Component, pageProps: { session, ...pageProps } }) {
+function MyApp({ Component, pageProps }) {
     return ( <
-        SessionProvider session = { session } >
+        KindeProvider domain = "your-kinde-domain"
+        clientId = "your-client-id"
+        redirectUri = "http://localhost:3000/api/auth/callback" >
         <
-        Layout >
+        Navbar / >
         <
         Component {...pageProps }
         /> <
-        /Layout> <
-        /SessionProvider>
+        /KindeProvider>
     );
 }
 
