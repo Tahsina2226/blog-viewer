@@ -1,4 +1,3 @@
-// pages/profile.js
 import React from 'react';
 import { getSession } from 'next-auth/react';
 
