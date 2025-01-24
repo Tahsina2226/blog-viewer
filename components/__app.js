@@ -1,18 +1,19 @@
-import '../styles/globals.css';
-import { KindeProvider } from '@kinde-oss/kinde-auth-nextjs';
-import Navbar from '../components/Navbar';
+import '@/styles/globals.css';
+import Header from '@/components/Header';
+import { KindeAuthProvider } from '@kinde-oss/kinde-auth-nextjs';
 
 function MyApp({ Component, pageProps }) {
     return ( <
-        KindeProvider domain = "your-kinde-domain"
-        clientId = "your-client-id"
-        redirectUri = "http://localhost:3000/api/auth/callback" >
+        KindeAuthProvider >
         <
-        Navbar / >
+        Header / >
+        <
+        main className = "p-6" >
         <
         Component {...pageProps }
         /> <
-        /KindeProvider>
+        /main> <
+        /KindeAuthProvider>
     );
 }
 

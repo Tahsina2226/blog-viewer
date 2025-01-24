@@ -1,31 +1,51 @@
-import Link from "next/link";
-import { useAuth } from "@kinde-oss/kinde-auth-nextjs";
+import Link from 'next/link'
+import { useEffect, useState } from 'react'
 
-export default function Header() {
-    const { isAuthenticated, login, logout } = useAuth();
+const Header = () => {
+    const [isAuthenticated, setIsAuthenticated] = useState(false)
+
+    useEffect(() => {
+        const token = localStorage.getItem('authToken')
+        if (token) {
+            setIsAuthenticated(true)
+        }
+    }, [])
+
+    const handleLogout = () => {
+        localStorage.removeItem('authToken')
+        setIsAuthenticated(false)
+    }
 
     return ( <
-        header className = "bg-gray-800 text-white p-4" >
+        header className = "bg-gray-800 p-4 text-white flex justify-between" >
         <
-        nav className = "flex justify-between" >
+        nav >
         <
-        div >
+        Link href = "/" >
         <
-        Link href = "/" > < a className = "mr-4" > Home < /a></Link >
+        a className = "mr-4" > Home < /a> <
+        /Link> <
+        Link href = "/profile" >
         <
-        Link href = "/profile" > < a > Profile < /a></Link >
-        <
-        /div> <
-        div > {!isAuthenticated ? ( <
-                button onClick = { login }
-                className = "bg-blue-500 px-4 py-2 rounded" > Login < /button>
+        a className = "mr-4" > Profile < /a> <
+        /Link> <
+        /nav> <
+        div > {
+            isAuthenticated ? ( <
+                button onClick = { handleLogout }
+                className = "bg-red-500 p-2" >
+                Logout <
+                /button>
             ) : ( <
-                button onClick = { logout }
-                className = "bg-red-500 px-4 py-2 rounded" > Logout < /button>
+                Link href = "/login" >
+                <
+                a className = "bg-blue-500 p-2" > Login < /a> <
+                /Link>
             )
         } <
         /div> <
-        /nav> <
         /header>
-    );
+    )
 }
+
+export default Header

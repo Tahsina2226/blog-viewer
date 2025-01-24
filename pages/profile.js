@@ -1,26 +1,22 @@
-import React from 'react';
-import { getSession } from 'next-auth/react';
-
-export async function getServerSideProps(context) {
-    const session = await getSession(context);
-
-    if (!session) {
-        return {
-            redirect: {
-                destination: '/login',
-                permanent: false,
-            },
-        };
-    }
-
-    return { props: {} };
-}
+import { useAuth } from '@kinde-oss/kinde-auth-nextjs';
 
 const Profile = () => {
+    const { isAuthenticated, user, login, logout } = useAuth();
+
+    console.log({ isAuthenticated, user });
+
+    if (!isAuthenticated) {
+        if (typeof window !== 'undefined') {
+            login();
+        }
+        return null;
+    }
+
     return ( <
         div >
         <
         h1 > Welcome to your profile! < /h1> <
+        p > Hello, { user ? .given_name || 'User' }! < /p> <
         /div>
     );
 };
